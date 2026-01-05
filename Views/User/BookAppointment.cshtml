@@ -1,0 +1,65 @@
+﻿@model HMSSystem.Models.ViewModels.AppointmentViewModel
+@{
+    ViewData["Title"] = "Book Appointment";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-plus-circle"></i> Book New Appointment</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="BookAppointment" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="AppointmentDate" class="form-label">Appointment Date</label>
+                            <input asp-for="AppointmentDate" type="date" class="form-control" />
+                            <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="TimeSlot" class="form-label">Time Slot</label>
+                            <select asp-for="TimeSlot" class="form-select">
+                                <option value="">Select Time</option>
+                                <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
+                                <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                                <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                                <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+                                <option value="03:00 PM - 04:00 PM">03:00 PM - 04:00 PM</option>
+                                <option value="04:00 PM - 05:00 PM">04:00 PM - 05:00 PM</option>
+                            </select>
+                            <span asp-validation-for="TimeSlot" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Purpose" class="form-label">Purpose</label>
+                        <input asp-for="Purpose" class="form-control" />
+                        <span asp-validation-for="Purpose" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Description (Optional)</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Document" class="form-label">Upload Document (Optional)</label>
+                        <input asp-for="Document" type="file" class="form-control" />
+                    </div>
+
+                    <div class="text-end">
+                        <a asp-action="Dashboard" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check"></i> Book Appointment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

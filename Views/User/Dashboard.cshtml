@@ -1,0 +1,84 @@
+﻿@model HMSSystem.Models.ViewModels.UserDashboardViewModel
+@{
+    ViewData["Title"] = "User Dashboard";
+}
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-primary text-white">
+            <i class="fas fa-calendar fa-3x mb-3"></i>
+            <h3>@Model.TotalAppointments</h3>
+            <p class="mb-0">Total Appointments</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-warning text-white">
+            <i class="fas fa-clock fa-3x mb-3"></i>
+            <h3>@Model.PendingAppointments</h3>
+            <p class="mb-0">Pending</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-success text-white">
+            <i class="fas fa-check-circle fa-3x mb-3"></i>
+            <h3>@Model.ApprovedAppointments</h3>
+            <p class="mb-0">Approved</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-info text-white">
+            <i class="fas fa-calendar-check fa-3x mb-3"></i>
+            <h3>@Model.CompletedAppointments</h3>
+            <p class="mb-0">Completed</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-white">
+        <h5 class="mb-0"><i class="fas fa-history"></i> Recent Appointments</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.RecentAppointments?.Any() == true)
+        {
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Purpose</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var apt in Model.RecentAppointments)
+                        {
+                            <tr>
+                                <td>@apt.AppointmentDate.ToString("dd-MMM-yyyy")</td>
+                                <td>@apt.TimeSlot</td>
+                                <td>@apt.Purpose</td>
+                                <td>
+                                    <span class="status-badge status-@apt.Status.ToLower()">
+                                        @apt.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <a asp-action="AppointmentDetails" asp-route-id="@apt.AppointmentId"
+                                       class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <p class="text-center text-muted py-4">No appointments yet</p>
+        }
+    </div>
+</div>

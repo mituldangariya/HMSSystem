@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Appointment>
+
+<h2>My Appointments</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Remark</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AppointmentDate.ToShortDateString()</td>
+                <td>@item.TimeSlot</td>
+                <td>
+                    <span class="badge bg-info">@item.Status</span>
+                </td>
+                <td>@item.AdminRemark</td>
+                <td>
+                    @if (item.Status == "Approved" || item.Status == "Completed")
+                    {
+                        <a asp-action="Download"
+                           asp-route-id="@item.AppointmentId"
+                           class="btn btn-sm btn-primary">
+                            Download
+                        </a>
+                    }
+
+                    @if (item.Status == "Completed")
+                    {
+                        <a asp-controller="Feedback"
+                           asp-action="Create"
+                           asp-route-id="@item.AppointmentId"
+                           class="btn btn-sm btn-success">
+                            Feedback
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,86 @@
+﻿@model HMSSystem.Models.ViewModels.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-primary text-white">
+            <i class="fas fa-calendar-alt fa-3x mb-3"></i>
+            <h3>@Model.TotalAppointments</h3>
+            <p class="mb-0">Total Appointments</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-warning text-white">
+            <i class="fas fa-hourglass-half fa-3x mb-3"></i>
+            <h3>@Model.PendingCount</h3>
+            <p class="mb-0">Pending Requests</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-success text-white">
+            <i class="fas fa-users fa-3x mb-3"></i>
+            <h3>@Model.TotalActiveUsers</h3>
+            <p class="mb-0">Active Users</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center p-3 bg-info text-white">
+            <i class="fas fa-comments fa-3x mb-3"></i>
+            <h3>@Model.TotalFeedbacks</h3>
+            <p class="mb-0">Total Feedbacks</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-clock"></i> Recent Appointments</h5>
+                <a asp-action="Appointments" class="btn btn-sm btn-primary">View All</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Purpose</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var apt in Model.RecentAppointments)
+                            {
+                                <tr>
+                                    <td>#@apt.AppointmentId</td>
+                                    <td>@apt.User?.FullName</td>
+                                    <td>@apt.AppointmentDate.ToString("dd-MMM-yyyy")</td>
+                                    <td>@apt.TimeSlot</td>
+                                    <td>@apt.Purpose</td>
+                                    <td>
+                                        <span class="status-badge status-@apt.Status.ToLower()">
+                                            @apt.Status
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a asp-action="AppointmentDetails" asp-route-id="@apt.AppointmentId"
+                                           class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i> View
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

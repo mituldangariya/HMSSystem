@@ -1,0 +1,26 @@
+﻿@model Appointment
+
+<h2>Request Appointment</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label>Appointment Date</label>
+        <input asp-for="AppointmentDate" type="date" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label>Time Slot</label>
+        <select asp-for="TimeSlot" class="form-control">
+            <option>10:00 - 11:00</option>
+            <option>11:00 - 12:00</option>
+            <option>02:00 - 03:00</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Purpose</label>
+        <textarea asp-for="Purpose" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
