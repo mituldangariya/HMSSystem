@@ -1,0 +1,73 @@
+﻿@model HMSSystem.Models.Appointment
+
+@{
+    ViewData["Title"] = "Appointment Details";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>Appointment Details</h5>
+    </div>
+
+    <div class="card-body">
+
+        <dl class="row mb-4">
+            <dt class="col-sm-3">Appointment ID</dt>
+            <dd class="col-sm-9">@Model.AppointmentId</dd>
+
+            <dt class="col-sm-3">User</dt>
+            <dd class="col-sm-9">@Model.User?.FullName</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.User?.Email</dd>
+
+            <dt class="col-sm-3">Mobile</dt>
+            <dd class="col-sm-9">@Model.User?.MobileNumber</dd>
+
+            <dt class="col-sm-3">Date</dt>
+            <dd class="col-sm-9">@Model.AppointmentDate.ToString("dd-MMM-yyyy")</dd>
+
+            <dt class="col-sm-3">Time</dt>
+            <dd class="col-sm-9">@Model.TimeSlot</dd>
+
+            <dt class="col-sm-3">Purpose</dt>
+            <dd class="col-sm-9">@Model.Purpose</dd>
+        </dl>
+
+        <!-- ===== UPDATE STATUS FORM ===== -->
+        <form asp-action="UpdateStatus" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" name="appointmentId" value="@Model.AppointmentId" />
+
+            <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select name="status" class="form-select" required>
+                    <option value="Pending" selected="@("Pending" == Model.Status)">Pending</option>
+                    <option value="Approved" selected="@("Approved" == Model.Status)">Approved</option>
+                    <option value="Rejected" selected="@("Rejected" == Model.Status)">Rejected</option>
+                    <option value="Completed" selected="@("Completed" == Model.Status)">Completed</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Admin Remark</label>
+                <textarea name="remark"
+                          class="form-control"
+                          rows="3"
+                          placeholder="Enter remark">@Model.AdminRemark</textarea>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Save Status
+                </button>
+
+                <a asp-action="Appointments" class="btn btn-secondary">
+                    Back
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>

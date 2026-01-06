@@ -40,10 +40,10 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a asp-action="AppointmentDetails" asp-route-id="@apt.AppointmentId"
+                                    @* <a asp-action="AppointmentDetails" asp-route-id="@apt.AppointmentId"
                                        class="btn btn-sm btn-info" title="View Details">
                                         <i class="fas fa-eye"></i>
-                                    </a>
+                                    </a> *@
                                     @if (apt.Status == "Approved" || apt.Status == "Completed")
                                     {
                                         <a asp-action="DownloadAppointment" asp-route-id="@apt.AppointmentId"
@@ -58,6 +58,16 @@
                                             <i class="fas fa-star"></i>
                                         </a>
                                     }
+                                    @if (apt.Status == "Pending")
+                                    {
+                                        <a asp-action="EditAppointment"
+                                           asp-route-id="@apt.AppointmentId"
+                                           class="btn btn-sm btn-primary"
+                                           title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    }
+
                                 </td>
                             </tr>
                         }

@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using HMSSystem.Data;
 using HMSSystem.Service;
 using HMSSystem.Repository;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 // Add services
 builder.Services.AddControllersWithViews();

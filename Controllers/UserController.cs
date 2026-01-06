@@ -216,5 +216,70 @@ namespace HMSSystem.Controllers
 
             return View(feedbacks);
         }
+        [HttpGet]
+        public async Task<IActionResult> EditAppointment(int id)
+        {
+            var userId = GetCurrentUserId();
+
+            var appointment = await _context.Appointments
+                .FirstOrDefaultAsync(a => a.AppointmentId == id && a.UserId == userId);
+
+            if (appointment == null || appointment.Status != "Pending")
+            {
+                TempData["Error"] = "You cannot edit this appointment";
+                return RedirectToAction("MyAppointments");
+            }
+
+            var model = new AppointmentViewModel
+            {
+                //AppointmentId = appointment.AppointmentId,
+                AppointmentDate = appointment.AppointmentDate,
+                TimeSlot = appointment.TimeSlot,
+                Purpose = appointment.Purpose,
+                Description = appointment.Description,
+                //Document = appointment.DocumentPath
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAppointment(AppointmentViewModel model)
+        {
+            if (ModelState.IsValid)
+                return View(model);
+
+            var userId = GetCurrentUserId();
+
+            var appointment = await _context.Appointments
+                .FirstOrDefaultAsync(a =>a.UserId == userId);
+
+            if (appointment == null)
+                return NotFound();
+
+            appointment.AppointmentDate = model.AppointmentDate;
+            appointment.TimeSlot = model.TimeSlot;
+            appointment.Purpose = model.Purpose;
+            appointment.Description = model.Description;
+
+            // Optional document update
+            //if (model.Document != null)
+            //{
+            //    var fileName = Guid.NewGuid() + Path.GetExtension(model.Document.FileName);
+            //    var path = Path.Combine(_env.WebRootPath, "uploads", fileName);
+
+            //    using var stream = new FileStream(path, FileMode.Create);
+            //    await model.Document.CopyToAsync(stream);
+
+            //    appointment.DocumentPath = fileName;
+            //}
+
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Appointment updated successfully";
+            return RedirectToAction("MyAppointments");
+        }
+
+
     }
 }

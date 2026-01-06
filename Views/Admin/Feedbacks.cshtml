@@ -1,0 +1,36 @@
+﻿@model List<HMSSystem.Models.Feedback>
+
+@{
+    ViewData["Title"] = "All Feedbacks";
+}
+
+<h4><i class="fas fa-comments"></i> User Feedbacks</h4>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>User</th>
+            <th>Appointment</th>
+            <th>Rating</th>
+            <th>Comments</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var f in Model)
+        {
+            <tr>
+                <td>@f.User.FullName</td>
+                <td>#@f.AppointmentId</td>
+                <td>
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <i class="fas fa-star @(i <= f.Rating ? "text-warning" : "text-muted")"></i>
+                    }
+                </td>
+                <td>@f.Comments</td>
+                <td>@f.CreatedDate.ToString("dd-MMM-yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

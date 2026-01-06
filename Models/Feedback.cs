@@ -17,7 +17,7 @@ namespace HMSSystem.Models
 
         [Required]
         [Range(1, 5)]
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
 
         public string Comments { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;

@@ -1,0 +1,23 @@
+﻿@model List<HMSSystem.Models.User>
+
+<h4>Users</h4>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.FullName</td>
+                <td>@u.Email</td>
+                <td>@u.MobileNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>

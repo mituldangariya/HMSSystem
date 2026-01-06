@@ -33,9 +33,15 @@ namespace HMSSystem.Repository
                 .ToListAsync();
         }
 
-        public async Task<Appointment> GetByIdAsync(int id)
+        //public async Task<Appointment> GetByIdAsync(int id)
+        //{
+        //    return await _context.Appointments.FindAsync(id);
+        //}
+        public async Task<Appointment?> GetByIdAsync(int id)
         {
-            return await _context.Appointments.FindAsync(id);
+            return await _context.Appointments
+                .Include(a => a.User)
+                .FirstOrDefaultAsync(a => a.AppointmentId == id);
         }
 
         public async Task UpdateAsync(Appointment appointment)

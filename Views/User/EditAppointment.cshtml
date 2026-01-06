@@ -1,0 +1,77 @@
+﻿@model HMSSystem.Models.ViewModels.AppointmentViewModel
+@{
+    ViewData["Title"] = "Edit Appointment";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-edit"></i> Edit Appointment
+                </h5>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="EditAppointment" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+@*                     <input type="hidden" asp-for="AppointmentId" />
+ *@
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="AppointmentDate" class="form-label"></label>
+                            <input asp-for="AppointmentDate" type="date" class="form-control" />
+                            <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="TimeSlot" class="form-label"></label>
+                            <select asp-for="TimeSlot" class="form-select">
+                                <option value="">Select Time</option>
+                                <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
+                                <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                                <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                                <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+                                <option value="03:00 PM - 04:00 PM">03:00 PM - 04:00 PM</option>
+                                <option value="04:00 PM - 05:00 PM">04:00 PM - 05:00 PM</option>
+                            </select>
+                            <span asp-validation-for="TimeSlot" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Purpose" class="form-label"></label>
+                        <input asp-for="Purpose" class="form-control" />
+                        <span asp-validation-for="Purpose" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Document" class="form-label">Replace Document (Optional)</label>
+                        <input asp-for="Document" type="file" class="form-control" />
+
+                        @* @if (!string.IsNullOrEmpty(Model.ExistingDocument))
+                        {
+                            <small class="text-muted">
+                                Existing file: @Model.ExistingDocument
+                            </small>
+                        } *@
+                    </div>
+
+                    <div class="text-end">
+                        <a asp-action="MyAppointments" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fas fa-save"></i> Update Appointment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
