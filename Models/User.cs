@@ -33,6 +33,9 @@ namespace HMSSystem.Models
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime? ModifiedDate { get; set; }
 
+        public string? ResetToken { get; set; }
+        public DateTime? ResetTokenExpiry { get; set; }
+
         // Navigation Properties
         public ICollection<Appointment> Appointments { get; set; }
         public ICollection<Feedback> Feedbacks { get; set; }

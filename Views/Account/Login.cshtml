@@ -54,6 +54,14 @@
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
 
+                        <div class="text-end mb-3">
+                            <a asp-action="ForgotPassword"
+                               asp-controller="Account"
+                               class="text-decoration-none text-primary">
+                                <i class="fas fa-unlock-alt"></i> Forgot Password?
+                            </a>
+                        </div>
+
                         <div class="mb-3 form-check">
                             <input asp-for="RememberMe" class="form-check-input" />
                             <label asp-for="RememberMe" class="form-check-label">Remember Me</label>

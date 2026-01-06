@@ -107,6 +107,19 @@
                         <a class="nav-link" href="@Url.Action("MyFeedback", "User")">
                             <i class="fas fa-star"></i> My Feedback
                         </a>
+                        @* <a class="nav-link"
+                           asp-controller="Account"
+                           asp-action="ResetPassword">
+                            <i class="fas fa-key"></i> Reset Password
+                        </a> *@
+                       @*  <a class="nav-link" href="@Url.Action("ResetPassword", "Account")">
+                            <i class="fas fa-key"></i> Reset Password
+                        </a> *@
+
+                        <a class="nav-link" href="@Url.Action("ChangePassword", "Account")">
+                            <i class="fas fa-lock"></i> Change Password
+                        </a>
+
                     }
                 </nav>
                 <hr class="my-4" style="border-color: rgba(255,255,255,0.3);">
